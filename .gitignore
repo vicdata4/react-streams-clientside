@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/src/auth_id.js
+
 # testing
 /coverage
 
