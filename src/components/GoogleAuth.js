@@ -1,5 +1,5 @@
 import React from 'react';
-import {oauth} from '../auth_id.js'
+import { oauth } from '../auth_id.js'
 
 
 class GoogleAuth extends React.Component {
@@ -7,7 +7,6 @@ class GoogleAuth extends React.Component {
     state = { isSignedIn: null };
 
     componentDidMount() {
-        // debugger;
         window.gapi.load('client:auth2', () => {
             window.gapi.client.init({
                 clientId: oauth,
@@ -24,13 +23,31 @@ class GoogleAuth extends React.Component {
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     };
 
+    onSignIn = () => {
+        this.auth.signIn();
+    };
+
+    onSignOut = () => {
+        this.auth.signOut();
+    };
+
     renderAuthButton() {
         if (this.state.isSignedIn === null) {
-            return <div>I dont know if we are signed in</div>;
+            return null;
         } else if (this.state.isSignedIn) {
-            return <div>I am signed in!</div>;
+            return (
+                <button onClick={this.onSignOut} className="ui red google button">
+                    <i className="google icon" />
+                    Sign Out
+                </button>
+            );
         } else {
-            return <div>I am not signed in</div>;
+            return (
+                <button onClick={this.onSignIn} className="ui red google button">
+                    <i className="google icon" />
+                    Sign In with Google
+                </button>
+            );
         }
     }
 
